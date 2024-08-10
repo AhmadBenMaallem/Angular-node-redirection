@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  angular-app:
+    build:
+      context: ./angular-app
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    depends_on:
+      - node-app
+    networks:
+      - app-network
+
+  node-app:
+    hostname: node-api
+    build:
+      context: ./node-app
+      dockerfile: Dockerfile
+    #ports:
+    #  - "3000:3000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
